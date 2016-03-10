@@ -20,6 +20,8 @@
 # along with ldap3 in the COPYING and COPYING.LESSER files.
 # If not, see <http://www.gnu.org/licenses/>.
 
+import sys
+
 from setuptools import setup
 from json import load
 
@@ -33,6 +35,10 @@ description = str(version_dict['description'])
 package_name = str(version_dict['package_name'])
 package_folder = str(version_dict['package_folder'])
 status = str(version_dict['status'])
+
+install_requires = ['pyasn1 >= 0.1.8']
+if sys.version_info < (2, 7, 9):
+    install_requires.append('backports.ssl_match_host_name')
 
 long_description = str(open('README.rst').read())
 
@@ -53,7 +59,7 @@ setup(name=package_name,
                 'ldap3.extend.microsoft',
                 'ldap3.extend.standard'],
       package_dir={'': package_folder},
-      install_requires=['pyasn1 >= 0.1.8'],
+      install_requires=install_requires,
       license=license,
       author=author,
       author_email=email,
